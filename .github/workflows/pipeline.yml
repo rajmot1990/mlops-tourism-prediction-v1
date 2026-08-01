@@ -6,16 +6,17 @@ on:
       - main
     paths:
       - 'tourism_project_v1/**'
+      - '.github/workflows/**'
 
 jobs:
   data_preparation:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
@@ -29,7 +30,7 @@ jobs:
         run: python tourism_project_v1/model_building/prep.py
 
       - name: Upload Train/Test Splits as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dataset-splits
           path: tourism_project_v1/data/*.csv
@@ -42,10 +43,10 @@ jobs:
       contents: write 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
@@ -53,7 +54,7 @@ jobs:
         run: pip install -r tourism_project_v1/requirements.txt
 
       - name: Download Train/Test Splits
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dataset-splits
           path: tourism_project_v1/data/
