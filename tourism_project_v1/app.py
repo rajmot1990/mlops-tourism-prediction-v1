@@ -1,16 +1,18 @@
-
 import streamlit as st
 import pandas as pd
 import joblib
+from pathlib import Path
 
-# Load Model
-model_path = "model.pkl"
+# Load Model dynamically
+BASE_DIR = Path(__file__).resolve().parent
+model_path = BASE_DIR / "model.pkl"
+
 try:
     model = joblib.load(model_path)
 except FileNotFoundError:
-    st.error("Model file not found. Ensure pipeline has trained and saved the model.")
+    st.error(f"Model file not found at {model_path}. Ensure pipeline has trained and saved the model.")
     st.stop()
-
+    
 st.title("Tourism Package Prediction")
 st.write("Enter customer details to predict if they will purchase a package.")
 
